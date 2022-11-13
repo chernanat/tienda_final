@@ -50,6 +50,7 @@
             <thead>
             <tr>
                 <th scope="col">Product Name</th>
+                <th scope="col">Category</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Price</th>
                 <th scope="col">Description</th>
@@ -79,8 +80,8 @@ import Auth from '../helpers/auth'
 export default {
     data(){
         return{
-            categories:{},
-            products:{},
+            categories:[],
+            products:[],
             image:'',
             validate:false,
             product_edit: null,
@@ -102,19 +103,16 @@ export default {
                 console.log(err);
             })
         },
+        table(){
+            this.$nextTick(()=>{
+                $('#test').DataTable()
+            });
+        },  
         getProduct(){
             axios.get('/product/').then(res=>{
-                $('#test').DataTable({
-                    data: res.data,
-                    columns:[
-                        {data: 'name'},
-                        {data: 'quantity'},
-                        {data: 'price'},
-                        {data: 'description'},
-                    ]
-                })
                 // console.log(res.data);
                 this.products = res.data
+                this.table();
             }).catch(err=>{
                 console.log(err);
             })

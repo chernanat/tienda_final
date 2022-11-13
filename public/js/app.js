@@ -2749,8 +2749,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      categories: {},
-      products: {},
+      categories: [],
+      products: [],
       image: '',
       validate: false,
       product_edit: null,
@@ -2774,24 +2774,19 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err);
       });
     },
+    table: function table() {
+      this.$nextTick(function () {
+        $('#test').DataTable();
+      });
+    },
     getProduct: function getProduct() {
       var _this2 = this;
 
       axios.get('/product/').then(function (res) {
-        $('#test').DataTable({
-          data: res.data,
-          columns: [{
-            data: 'name'
-          }, {
-            data: 'quantity'
-          }, {
-            data: 'price'
-          }, {
-            data: 'description'
-          }]
-        }); // console.log(res.data);
-
+        // console.log(res.data);
         _this2.products = res.data;
+
+        _this2.table();
       })["catch"](function (err) {
         console.log(err);
       });
@@ -4216,6 +4211,10 @@ var staticRenderFns = [function () {
       scope: "col"
     }
   }, [_vm._v("Product Name")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Category")]), _vm._v(" "), _c("th", {
     attrs: {
       scope: "col"
     }
