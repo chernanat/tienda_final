@@ -15,13 +15,13 @@ class LoginController extends Controller
         $credentials = $request->only(['email', 'password']);
         if (Auth::attempt($credentials, true)) {
             return response()->json([
-                'loged' => true,
+                'logged' => true,
                 'user' => User::select(['name', 'email', 'id'])->whereId(Auth::id())->first()
             ], 200);
         } else {
             return response()->json([
-                'loged' => false,
-                'errors' => 'Email or Password are Incorrect'
+                'logged' => false,
+                'errors' => 'Email or Password are Incorrect!'
             ], 422);
         }
     }
