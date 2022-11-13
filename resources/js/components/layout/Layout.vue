@@ -58,7 +58,7 @@ export default {
     methods:{
         index(){
             this.auth = Auth.data
-            console.log(this.auth);
+            // console.log(this.auth);
         },
         logout(){
             axios.post('/sign/logout').then(res=>{

@@ -81,8 +81,7 @@ export default {
     data(){
         return{
             categories:{},
-            products:{
-            },
+            products:{},
             image:'',
             validate:false,
             product_edit: null,
@@ -92,8 +91,8 @@ export default {
     created(){
         $(document).ready(function () {
         $('#test').DataTable();
-});
-        this.getproduct()
+    });
+        this.getProduct()
         this.getcategories()
         Auth.initialize()
         this.auth = Auth.data
@@ -101,15 +100,15 @@ export default {
     methods:{
         getcategories(){
             axios.get('/product/categories').then(res=>{
-                console.log(res.data);
+                // console.log(res.data);
                 this.categories = res.data
             }).catch(err=>{
                 console.log(err);
             })
         },
-        getproduct(){
+        getProduct(){
             axios.get('/product/').then(res=>{
-                console.log(res.data);
+                // console.log(res.data);
                 this.products = res.data
             }).catch(err=>{
                 console.log(err);
@@ -117,9 +116,9 @@ export default {
         },
         edit(id){
             axios.get(`/product/edit/${id}`, this.products).then(res=>{
-                console.log(this.products);
+                // console.log(this.products);
                 res => res.data
-                console.log(res.data);
+                // console.log(res.data);
                 this.product_edit = res.data
             })
             .catch(err=> console.log(err))
@@ -135,7 +134,7 @@ export default {
                 product.append('image',this.product_edit.photo,this.product_edit.photo.name)
             }
             axios.post(`/product/edit/${id}`,product).then(res=>{
-                this.getproduct()
+                this.getProduct()
                 this.getcategories()
                 if(res.data.update){
                     Swal.fire('Product Updated Successfully!', '','success')
@@ -149,7 +148,7 @@ export default {
         },
         del(id){  
             axios.get(`/product/delete/${id}`).then(
-                this.getproduct(),
+                this.getProduct(),
                 this.getcategories(),
                 Swal.fire('Product Deleted Successfully!', '','success'),
                 res => console.log(res)).
