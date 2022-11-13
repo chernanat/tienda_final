@@ -34,7 +34,7 @@ export default {
         save(){
             axios.post('/category/save',this.category).then(res => {
                 if(res.data.saved){
-                    console.log(this.category.name);
+                    // console.log(this.category.name);
                     this.category = {}
                     this.$parent.test()
                 }

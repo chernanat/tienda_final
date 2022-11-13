@@ -1,7 +1,7 @@
 <template>
     <section class="container">
         <div>
-            <form v-on:submit.prevent="update(item_edit)">
+            <form v-on:submit.prevent="update()">
             <table class="table mt-5">
                 <thead>
                     <tr>

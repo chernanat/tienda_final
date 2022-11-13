@@ -2194,7 +2194,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     logged: function logged() {
       if (this.user.user_id == null) {
-        alert('You need to be Logged!');
         window.location.href = "/login";
       }
     }
@@ -2371,7 +2370,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('/category/save', this.category).then(function (res) {
         if (res.data.saved) {
-          console.log(_this.category.name);
+          // console.log(this.category.name);
           _this.category = {};
 
           _this.$parent.test();
@@ -2522,8 +2521,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     index: function index() {
-      this.auth = _helpers_auth__WEBPACK_IMPORTED_MODULE_0__["default"].data;
-      console.log(this.auth);
+      this.auth = _helpers_auth__WEBPACK_IMPORTED_MODULE_0__["default"].data; // console.log(this.auth);
     },
     logout: function logout() {
       axios.post('/sign/logout').then(function (res) {
@@ -2763,7 +2761,7 @@ __webpack_require__.r(__webpack_exports__);
     $(document).ready(function () {
       $('#test').DataTable();
     });
-    this.getproduct();
+    this.getProduct();
     this.getcategories();
     _helpers_auth__WEBPACK_IMPORTED_MODULE_1__["default"].initialize();
     this.auth = _helpers_auth__WEBPACK_IMPORTED_MODULE_1__["default"].data;
@@ -2773,17 +2771,17 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('/product/categories').then(function (res) {
-        console.log(res.data);
+        // console.log(res.data);
         _this.categories = res.data;
       })["catch"](function (err) {
         console.log(err);
       });
     },
-    getproduct: function getproduct() {
+    getProduct: function getProduct() {
       var _this2 = this;
 
       axios.get('/product/').then(function (res) {
-        console.log(res.data);
+        // console.log(res.data);
         _this2.products = res.data;
       })["catch"](function (err) {
         console.log(err);
@@ -2793,13 +2791,12 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       axios.get("/product/edit/".concat(id), this.products).then(function (res) {
-        console.log(_this3.products);
-
+        // console.log(this.products);
         (function (res) {
           return res.data;
-        });
+        }); // console.log(res.data);
 
-        console.log(res.data);
+
         _this3.product_edit = res.data;
       })["catch"](function (err) {
         return console.log(err);
@@ -2820,7 +2817,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       axios.post("/product/edit/".concat(id), product).then(function (res) {
-        _this4.getproduct();
+        _this4.getProduct();
 
         _this4.getcategories();
 
@@ -2835,7 +2832,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     del: function del(id) {
-      axios.get("/product/delete/".concat(id)).then(this.getproduct(), this.getcategories(), sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('Product Deleted Successfully!', '', 'success'), function (res) {
+      axios.get("/product/delete/".concat(id)).then(this.getProduct(), this.getcategories(), sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('Product Deleted Successfully!', '', 'success'), function (res) {
         return console.log(res);
       })["catch"](function (err) {
         return console.log(err);
@@ -3021,7 +3018,7 @@ var render = function render() {
     on: {
       submit: function submit($event) {
         $event.preventDefault();
-        return _vm.update(_vm.item_edit);
+        return _vm.update();
       }
     }
   }, [_c("table", {

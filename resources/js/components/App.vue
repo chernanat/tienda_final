@@ -34,7 +34,6 @@ export default {
     methods:{
         logged(){
             if(this.user.user_id == null){
-                alert('You need to be Logged!')
                 window.location.href = "/login"
             }
         }
