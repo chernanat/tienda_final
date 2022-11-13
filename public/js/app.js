@@ -2563,7 +2563,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       user: {},
-      auth: ''
+      auth: {
+        user_id: null
+      }
     };
   },
   methods: {
@@ -2573,10 +2575,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/sign/login', this.user).then(function (res) {
         _helpers_auth__WEBPACK_IMPORTED_MODULE_0__["default"].set(_this.user.email, _this.user.name, res.data.user.id);
         window.location.href = "/home";
-        console.log(res.data);
       })["catch"](function (err) {
-        console.log(err);
-        Swal.fire('Sorry, Your credentials are Incorrect!', err, 'error');
+        Swal.fire(err.response.data.errors + '!', '', 'error');
       });
     }
   }

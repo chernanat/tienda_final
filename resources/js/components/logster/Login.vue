@@ -32,7 +32,9 @@ export default {
     data(){
         return{
             user:{},
-            auth:''
+            auth: {
+                user_id: null,
+            }
         }
     },
     methods:{
@@ -40,15 +42,9 @@ export default {
                 axios.post('/sign/login',this.user).then(res => {
                     Auth.set(this.user.email,this.user.name,res.data.user.id)
                     window.location.href = "/home"
-                    console.log(res.data);
                 }
                 ).catch(err => {
-                    console.log(err)
-                    Swal.fire(
-                        'Sorry, Your credentials are Incorrect!',
-                        err,
-                        'error'
-                        )
+                    Swal.fire(err.response.data.errors + '!','','error')
                 });
             }
 
