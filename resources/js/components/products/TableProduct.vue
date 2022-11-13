@@ -75,6 +75,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import Auth from '../helpers/auth'
 export default {
     data(){
@@ -137,18 +138,20 @@ export default {
                 this.getproduct()
                 this.getcategories()
                 if(res.data.update){
-                    alert('Product Updated Succesfully ' + this.product_edit.name)
+                    Swal.fire('Product Updated Successfully!', '','success')
                     this.product_edit = {}
                 }
             }).catch(err=>{
-                console.log(err);
+                if(err.response.status === 500){
+                    Swal.fire('Product Cannot Have Fields Empty!', '','error')
+                }
             })
         },
         del(id){  
             axios.get(`/product/delete/${id}`).then(
                 this.getproduct(),
                 this.getcategories(),
-                alert('Product Deleted Succesfully'),
+                Swal.fire('Product Deleted Successfully!', '','success'),
                 res => console.log(res)).
             catch(err => console.log(err))
         },

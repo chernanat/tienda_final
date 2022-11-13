@@ -50,12 +50,12 @@ export default {
         add_cart(id){
             this.cart.product_id = id
             if(this.cart.user_id == null){
-                alert('You Need to be Loged to Add this Item')
+                Swal.fire('You Need To Be Logged First!', '', 'warning')
             }
             else{
                 axios.post('/cart/save',this.cart).then(res=>{
                     if(res.data.Saved){
-                        alert('Added Succesfully!')
+                        Swal.fire('Item Added To Cart!','','success')
                     }
                     // console.log(res.data);
                 }).catch(err=>{

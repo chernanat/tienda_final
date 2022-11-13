@@ -2236,11 +2236,11 @@ __webpack_require__.r(__webpack_exports__);
       this.cart.product_id = id;
 
       if (this.cart.user_id == null) {
-        alert('You Need to be Loged to Add this Item');
+        Swal.fire('You Need To Be Logged First!', '', 'warning');
       } else {
         axios.post('/cart/save', this.cart).then(function (res) {
           if (res.data.Saved) {
-            alert('Added Succesfully!');
+            Swal.fire('Item Added To Cart!', '', 'success');
           } // console.log(res.data);
 
         })["catch"](function (err) {
@@ -2264,7 +2264,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _helpers_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/auth */ "./resources/js/components/helpers/auth.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/auth */ "./resources/js/components/helpers/auth.js");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {},
@@ -2277,8 +2280,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {},
   mounted: function mounted() {
-    _helpers_auth__WEBPACK_IMPORTED_MODULE_0__["default"].initialize();
-    this.user = _helpers_auth__WEBPACK_IMPORTED_MODULE_0__["default"].data;
+    _helpers_auth__WEBPACK_IMPORTED_MODULE_1__["default"].initialize();
+    this.user = _helpers_auth__WEBPACK_IMPORTED_MODULE_1__["default"].data;
     this.getitems();
   },
   methods: {
@@ -2287,11 +2290,11 @@ __webpack_require__.r(__webpack_exports__);
 
       // console.log(this.user.id);
       if (this.user.id == null) {
-        alert('Yout need to be Logged.');
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('You Need To Be Logged First!', '', 'warning');
         window.location.href = "/home";
       } else {
         axios.post('/cart/items', this.user).then(function (res) {
-          _this.items = res.data; // console.log(res.data);
+          _this.items = res.data; // console.log(res.data); 
 
           _this.suma();
         })["catch"](function (err) {
@@ -2311,7 +2314,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/cart/delete/".concat(id)).then(function (res) {
         if (res.data.deleted) {
-          alert('Item Removed');
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('Item Removed!', '', 'info');
 
           _this2.getitems();
         }
@@ -2324,7 +2327,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post("/cart/update", this.items).then(function (res) {
         if (res.data.updated) {
-          alert('Item Updated!');
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('Item Updated!', '', 'success');
 
           _this3.getitems();
         }
@@ -2432,6 +2435,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2447,7 +2453,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('/category/').then(function (res) {
-        console.log(res.data);
         _this.category = res.data;
       })["catch"](function (err) {
         console.log(err);
@@ -2461,7 +2466,6 @@ __webpack_require__.r(__webpack_exports__);
           return res.data;
         });
 
-        console.log(res.data);
         _this2.category_edit = res.data;
       })["catch"](function (err) {
         return console.log(err);
@@ -2471,18 +2475,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       axios.post("/category/edit/".concat(id), this.category_edit).then(function (res) {
-        alert('User Updated Succesfully ' + _this3.category_edit.name);
-
-        _this3.getcategories(); //     if(res.data.update){
-        //         console.log(this.user_edit);
-        //     }
-
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('Category Updated Succesfully !', '', 'success'), _this3.getcategories();
       })["catch"](function (err) {
-        console.log(err);
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire(err.response.data.message + ' !', '', 'error');
       });
     },
     del: function del(id) {
-      axios.get("/category/delete/".concat(id)).then(alert('Category Deleted Succesfully'), this.getcategories(), function (res) {
+      axios.get("/category/delete/".concat(id)).then(sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('Category Deleted Succesfully!', '', 'success'), this.getcategories(), function (res) {
         return console.log(res);
       })["catch"](function (err) {
         return console.log(err);
@@ -2671,13 +2670,14 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post('/product/save', product).then(function (res) {
         if (res.data.saved) {
-          console.log(_this.product.name);
+          Swal.fire('Product Added Succesfully!', '', 'success');
           _this.product = {};
 
           _this.$parent.test();
         }
       })["catch"](function (err) {
-        console.log(err);
+        Swal.fire(err.response, '', 'error');
+        console.log(err.response);
       });
     },
     photo: function photo(event) {
@@ -2743,7 +2743,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _helpers_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/auth */ "./resources/js/components/helpers/auth.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/auth */ "./resources/js/components/helpers/auth.js");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -2762,8 +2765,8 @@ __webpack_require__.r(__webpack_exports__);
     });
     this.getproduct();
     this.getcategories();
-    _helpers_auth__WEBPACK_IMPORTED_MODULE_0__["default"].initialize();
-    this.auth = _helpers_auth__WEBPACK_IMPORTED_MODULE_0__["default"].data;
+    _helpers_auth__WEBPACK_IMPORTED_MODULE_1__["default"].initialize();
+    this.auth = _helpers_auth__WEBPACK_IMPORTED_MODULE_1__["default"].data;
   },
   methods: {
     getcategories: function getcategories() {
@@ -2822,15 +2825,17 @@ __webpack_require__.r(__webpack_exports__);
         _this4.getcategories();
 
         if (res.data.update) {
-          alert('Product Updated Succesfully ' + _this4.product_edit.name);
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('Product Updated Successfully!', '', 'success');
           _this4.product_edit = {};
         }
       })["catch"](function (err) {
-        console.log(err);
+        if (err.response.status === 500) {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('Product Cannot Have Fields Empty!', '', 'error');
+        }
       });
     },
     del: function del(id) {
-      axios.get("/product/delete/".concat(id)).then(this.getproduct(), this.getcategories(), alert('Product Deleted Succesfully'), function (res) {
+      axios.get("/product/delete/".concat(id)).then(this.getproduct(), this.getcategories(), sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('Product Deleted Successfully!', '', 'success'), function (res) {
         return console.log(res);
       })["catch"](function (err) {
         return console.log(err);

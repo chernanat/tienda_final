@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 import Auth from '../helpers/auth'
 export default {
     props:{
@@ -78,13 +79,13 @@ export default {
         getitems(){
             // console.log(this.user.id);
             if(this.user.id == null){
-                alert('Yout need to be Logged.')
+                Swal.fire('You Need To Be Logged First!', '', 'warning')
                 window.location.href = "/home"
             }
             else{
                 axios.post('/cart/items',this.user).then(res=>{
-                    this.items = res.data
-                    // console.log(res.data);
+                   this.items = res.data
+                    // console.log(res.data); 
                     this.suma()
                 }).catch(err=>{
                     console.log(err);
@@ -100,7 +101,7 @@ export default {
         del(id){
             axios.get(`/cart/delete/${id}`).then(res=>{
                 if(res.data.deleted){
-                    alert('Item Removed')
+                    Swal.fire('Item Removed!', '', 'info')
                     this.getitems()
                 }
             }).catch(err=>{
@@ -110,7 +111,7 @@ export default {
         update(){
             axios.post(`/cart/update`,this.items).then(res=>{
                 if(res.data.updated){
-                    alert('Item Updated!')
+                    Swal.fire('Item Updated!', '', 'success')
                     this.getitems()
                 }
             }).catch(err=>{

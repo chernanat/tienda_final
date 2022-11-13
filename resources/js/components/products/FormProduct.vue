@@ -73,16 +73,16 @@ export default {
             if(this.validate == true){
                 product.append('image',this.product.photo,this.product.photo.name)
             }
-            
             axios.post('/product/save',product).then(res => {
                 if(res.data.saved){
-                    console.log(this.product.name);
+                    Swal.fire('Product Added Succesfully!','','success')
                     this.product = {}
                     this.$parent.test();
                 }
             }
             ).catch(err => {
-                console.log(err);
+                Swal.fire(err.response,'','error')
+                console.log(err.response);
             });
         },
         photo(event){

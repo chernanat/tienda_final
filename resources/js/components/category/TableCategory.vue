@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
+
 export default {
 
     data(){
@@ -57,7 +59,6 @@ export default {
     methods:{
         getcategories(){
             axios.get('/category/').then(res=>{
-                console.log(res.data);
                 this.category = res.data
             }).catch(err=>{
                 console.log(err);
@@ -66,25 +67,21 @@ export default {
         edit(id){
             axios.get(`/category/edit/${id}`,).then(res=>{
                 res => res.data
-                console.log(res.data);
                 this.category_edit = res.data
             })
             .catch(err=> console.log(err))
         },
         update(id){
             axios.post(`/category/edit/${id}`,this.category_edit).then(res=>{
-                alert('User Updated Succesfully ' + this.category_edit.name)
+                Swal.fire('Category Updated Succesfully !', '' ,'success'),
                 this.getcategories()
-            //     if(res.data.update){
-            //         console.log(this.user_edit);
-            //     }
             }).catch(err=>{
-                console.log(err);
+                Swal.fire(err.response.data.message+ ' !','','error')
             })
         },
         del(id){  
             axios.get(`/category/delete/${id}`).then(
-                alert('Category Deleted Succesfully'),
+                Swal.fire('Category Deleted Succesfully!','','success'),
                 this.getcategories(),
                 res => console.log(res)).
             catch(err => console.log(err))
