@@ -50,7 +50,6 @@
             <thead>
             <tr>
                 <th scope="col">Product Name</th>
-                <th scope="col">Category</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Price</th>
                 <th scope="col">Description</th>
@@ -89,9 +88,6 @@ export default {
         }
     },
     created(){
-        $(document).ready(function () {
-        $('#test').DataTable();
-    });
         this.getProduct()
         this.getcategories()
         Auth.initialize()
@@ -108,6 +104,15 @@ export default {
         },
         getProduct(){
             axios.get('/product/').then(res=>{
+                $('#test').DataTable({
+                    data: res.data,
+                    columns:[
+                        {data: 'name'},
+                        {data: 'quantity'},
+                        {data: 'price'},
+                        {data: 'description'},
+                    ]
+                })
                 // console.log(res.data);
                 this.products = res.data
             }).catch(err=>{

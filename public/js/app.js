@@ -2758,9 +2758,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    $(document).ready(function () {
-      $('#test').DataTable();
-    });
     this.getProduct();
     this.getcategories();
     _helpers_auth__WEBPACK_IMPORTED_MODULE_1__["default"].initialize();
@@ -2781,7 +2778,19 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.get('/product/').then(function (res) {
-        // console.log(res.data);
+        $('#test').DataTable({
+          data: res.data,
+          columns: [{
+            data: 'name'
+          }, {
+            data: 'quantity'
+          }, {
+            data: 'price'
+          }, {
+            data: 'description'
+          }]
+        }); // console.log(res.data);
+
         _this2.products = res.data;
       })["catch"](function (err) {
         console.log(err);
@@ -4207,10 +4216,6 @@ var staticRenderFns = [function () {
       scope: "col"
     }
   }, [_vm._v("Product Name")]), _vm._v(" "), _c("th", {
-    attrs: {
-      scope: "col"
-    }
-  }, [_vm._v("Category")]), _vm._v(" "), _c("th", {
     attrs: {
       scope: "col"
     }
