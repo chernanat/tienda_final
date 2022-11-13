@@ -1,5 +1,8 @@
 import './bootstrap';
 
+import swal from 'sweetalert2';
+window.Swal = swal;
+
 import './bootstrap';
 
 // import Vue from 'vue'
