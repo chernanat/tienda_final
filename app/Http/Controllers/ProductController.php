@@ -74,9 +74,16 @@ class ProductController extends Controller
         if($validate){
             $product->photo = $image;
         }
-        $product->update($request->all());
-        return response()->json([
-            'updated'=> true,
-        ]);
+        if($product->update($request->all())){
+            return response()->json([
+                'updated'=> true,
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'updated'=> false,
+            ], 422);
+        }
+
     }
 }

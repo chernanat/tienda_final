@@ -48,7 +48,15 @@ class CategoryController extends Controller
     }
     public function update(CategoryRequest $request, Category $category)
     {
-        $category->update($request->all());
-        return back();
+        if($category->update($request->all())){
+            return response()->json([
+                'updated'=> true
+            ]);
+        }else{
+            return response()->json([
+                'updated'=> false,
+                'message'=> 'Category cannot be empty!'
+            ], 422);
+        }
     }
 }
