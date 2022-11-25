@@ -2325,10 +2325,24 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       axios.post("/cart/update", this.items).then(function (res) {
-        if (res.data.updated) {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('Item Updated!', '', 'success');
+        for (var i = 0; i < _this3.items.length; i++) {
+          if (_this3.items[i].quantity == 0) {
+            _this3.del(_this3.items[i].id);
+          }
+        }
 
-          _this3.getitems();
+        if (_this3.items.length == 0) {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('There is nothing to update!', '', 'error');
+        } else {
+          for (var _i = 0; _i < _this3.items.length; _i++) {
+            if (_this3.items[_i].quantity > 0) {
+              if (res.data.updated) {
+                sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('Item Updated!', '', 'success');
+
+                _this3.getitems();
+              }
+            }
+          }
         }
       })["catch"](function (err) {
         console.log(err);

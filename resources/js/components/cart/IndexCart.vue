@@ -110,9 +110,20 @@ export default {
         },
         update(){
             axios.post(`/cart/update`,this.items).then(res=>{
-                if(res.data.updated){
-                    Swal.fire('Item Updated!', '', 'success')
-                    this.getitems()
+                for(let i=0; i<this.items.length ; i++){
+                    if(this.items[i].quantity == 0){
+                        this.del(this.items[i].id)
+                }}
+                if(this.items.length == 0){
+                    Swal.fire('There is nothing to update!', '', 'error')
+                }else{
+                    for(let i = 0; i<this.items.length;i++){
+                        if(this.items[i].quantity > 0){
+                            if(res.data.updated){
+                                Swal.fire('Item Updated!', '', 'success')
+                                this.getitems()
+                    }}
+                }
                 }
             }).catch(err=>{
                 console.log(err);
