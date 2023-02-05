@@ -28,6 +28,7 @@ export default {
     mounted(){
         Auth.initialize()
         this.auth.user_id = Auth.data.id
+        this.validateLogin()
     },
     data(){
         return{
@@ -39,15 +40,19 @@ export default {
     },
     methods:{
         login(){
-                axios.post('/sign/login',this.user).then(res => {
-                    Auth.set(this.user.email,this.user.name,res.data.user.id)
-                    window.location.href = "/home"
-                }
-                ).catch(err => {
-                    Swal.fire(err.response.data.errors + '!','','error')
-                });
+            axios.post('/sign/login',this.user).then(res => {
+                Auth.set(this.user.email,this.user.name,res.data.user.id)
+                window.location.href = "/home"
             }
-
+            ).catch(err => {
+                Swal.fire(err.response.data.errors + '!','','error')
+            });
+        },
+        validateLogin(){
+            if(this.auth.user_id = Auth.data.id){
+                window.location.href = "/home"
+            }
         }
+    }
 }
 </script>

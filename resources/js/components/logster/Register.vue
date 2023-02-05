@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import Auth from '../helpers/auth';
 
 export default {
     components:{
@@ -30,8 +31,16 @@ export default {
     },
     data(){
         return{
-            user:{}
+            user:{},
+            auth:{
+                user_id: ''
+            }
         }
+    },
+    mounted() {
+        Auth.initialize()
+        this.auth.user_id = Auth.data.id
+        this.validateLogin()
     },
     methods:{
         save(){
@@ -49,6 +58,14 @@ export default {
                     Swal.fire('Error!', 'This Email Already Exists!!!','error')
                 }            
             });
+        },
+        validateLogin(){
+            if(this.auth.user_id){
+                if(this.auth.user_id == Auth.data.id){
+                window.location.href = "/home"
+            }
+            }
+
         }
     }
 }

@@ -2570,6 +2570,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     _helpers_auth__WEBPACK_IMPORTED_MODULE_0__["default"].initialize();
     this.auth.user_id = _helpers_auth__WEBPACK_IMPORTED_MODULE_0__["default"].data.id;
+    this.validateLogin();
   },
   data: function data() {
     return {
@@ -2589,6 +2590,11 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         Swal.fire(err.response.data.errors + '!', '', 'error');
       });
+    },
+    validateLogin: function validateLogin() {
+      if (this.auth.user_id = _helpers_auth__WEBPACK_IMPORTED_MODULE_0__["default"].data.id) {
+        window.location.href = "/home";
+      }
     }
   }
 });
@@ -2606,12 +2612,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _helpers_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/auth */ "./resources/js/components/helpers/auth.js");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {},
   data: function data() {
     return {
-      user: {}
+      user: {},
+      auth: {
+        user_id: ''
+      }
     };
+  },
+  mounted: function mounted() {
+    _helpers_auth__WEBPACK_IMPORTED_MODULE_0__["default"].initialize();
+    this.auth.user_id = _helpers_auth__WEBPACK_IMPORTED_MODULE_0__["default"].data.id;
+    this.validateLogin();
   },
   methods: {
     save: function save() {
@@ -2632,6 +2648,13 @@ __webpack_require__.r(__webpack_exports__);
           Swal.fire('Error!', 'This Email Already Exists!!!', 'error');
         }
       });
+    },
+    validateLogin: function validateLogin() {
+      if (this.auth.user_id) {
+        if (this.auth.user_id == _helpers_auth__WEBPACK_IMPORTED_MODULE_0__["default"].data.id) {
+          window.location.href = "/home";
+        }
+      }
     }
   }
 });
