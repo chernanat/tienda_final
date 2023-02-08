@@ -53,7 +53,6 @@
                 <th scope="col">Category</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Price</th>
-                <th scope="col">Description</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>

@@ -28,8 +28,8 @@ export default {
         test(){
             this.load = false
             setTimeout(() => {
-        this.load = true;
-        }, 200);
+                this.load = true;
+            }, 200);
         }
     }
 }
